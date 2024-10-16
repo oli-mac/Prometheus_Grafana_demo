@@ -19,27 +19,6 @@ This README provides instructions for setting up an observability stack using Pr
 1. **Create a Configuration File:**
    Create a file named `promtail.yml` with the following content:
 
-   ```yaml
-   server:
-     http_listen_port: 9080
-     grpc_listen_port: 9095
-
-   positions:
-     filename: /tmp/positions.yaml
-
-   clients:
-     - url: http://<loki_host>:3100/loki/api/v1/push  # Replace <loki_host> with your Loki instance
-
-   scrape_configs:
-     - job_name: system
-       static_configs:
-         - targets:
-             - localhost
-           labels:
-             job: varlogs
-             __path__: /var/log/*.log  # Adjust this path to your log files
-   ```
-
 2. **Start Promtail:**
    Run the following command in the directory where `promtail` is located:
 
@@ -52,14 +31,6 @@ This README provides instructions for setting up an observability stack using Pr
 1. **Create a Configuration File:**
    Create a file named `prometheus.yml` with the following content:
 
-   ```yaml
-   global:
-     scrape_interval: 15s
-
-   scrape_configs:
-     - job_name: 'your_application'
-       static_configs:
-         - targets: ['<your_application_host>:<port>']  # Replace with your application's host and port
    ```
 
 2. **Start Prometheus:**
