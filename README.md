@@ -1,81 +1,58 @@
-Certainly! Here’s a README file that outlines the setup and configuration for Promtail, Prometheus, Loki, and Grafana. You can customize it further based on your project specifics.
 
-```markdown
-# Observability Stack: Promtail, Prometheus, Loki, and Grafana
 
-This README provides instructions for setting up an observability stack using Promtail, Prometheus, Loki, and Grafana. This stack enables you to collect logs, monitor metrics, and visualize the data in Grafana.
+# Observability Stack with FastAPI, Prometheus, Loki, and Grafana
+
+This project provides a basic setup for an observability stack using FastAPI, Prometheus, Loki, and Grafana. It includes a simple FastAPI application, a Docker Compose file for easy deployment, and a Dockerfile for building the application image.
+
+## Table of Contents
+
+* [Prerequisites](#prerequisites)
+* [Setup Instructions](#setup-instructions)
+* [Components](#components)
+* [Configuration](#configuration)
+* [Usage](#usage)
+* [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
 
-- Go to the [Loki releases page](https://github.com/grafana/loki/releases) and download the latest version of **Promtail**.
-- Go to the [Prometheus website](https://prometheus.io/download/) and download the latest version of **Prometheus**.
-- Go to the [Grafana website](https://grafana.com/get) and download the latest version of **Grafana**.
-- Ensure you have **Docker** or **Docker Compose** installed if you plan to use containers.
+* Docker and Docker Compose installed on your system
+* Python 3.9 or later
+* PostgreSQL database (optional)
 
 ## Setup Instructions
 
-### 1. Install and Configure Promtail
+1. Clone this repository to your local machine.
+2. Create a new directory for your project and navigate into it.
+3. Copy the `docker-compose.yml` and `Dockerfile` files from this repository into your project directory.
+4. Create a new file named `main.py` and copy the contents of the `main.py` file from this repository into it.
+5. Create a new file named `prometheus.yml` and copy the contents of the `prometheus.yml` file from this repository into it.
+6. Create a new file named `promtail-config.yaml` and copy the contents of the `promtail-config.yaml` file from this repository into it.
+7. Create a new file named `loki-config.yaml` and copy the contents of the `loki-config.yaml` file from this repository into it.
+8. Run `docker-compose up -d` to start the containers in detached mode.
 
-1. **Create a Configuration File:**
-   Create a file named `promtail.yml` with the following content:
+## Components
 
-2. **Start Promtail:**
-   Run the following command in the directory where `promtail` is located:
+* **FastAPI Application**: The `main.py` file contains a simple FastAPI application that exposes a single endpoint for creating text entries.
+* **Prometheus**: The `prometheus.yml` file configures Prometheus to scrape metrics from the FastAPI application.
+* **Loki**: The `loki-config.yaml` file configures Loki to collect logs from the FastAPI application.
+* **Grafana**: The `docker-compose.yml` file includes a Grafana service that can be used to visualize metrics and logs.
+* **PostgreSQL Database**: The `docker-compose.yml` file includes a PostgreSQL database service that can be used to store data.
 
-   ```bash
-   ./promtail -config.file=promtail.yml
-   ```
+## Configuration
 
-### 2. Install and Configure Prometheus
+* **Environment Variables**: The `docker-compose.yml` file sets environment variables for the FastAPI application, including `DATABASE_URL`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`.
+* **Prometheus Configuration**: The `prometheus.yml` file configures Prometheus to scrape metrics from the FastAPI application.
+* **Loki Configuration**: The `loki-config.yaml` file configures Loki to collect logs from the FastAPI application.
+* **Grafana Configuration**: The `docker-compose.yml` file includes a Grafana service that can be configured to visualize metrics and logs.
 
-1. **Create a Configuration File:**
-   Create a file named `prometheus.yml` with the following content:
+## Usage
 
-   ```
+* **Create Text Entries**: Use the `create_text` endpoint to create new text entries.
+* **View Metrics**: Use the Grafana dashboard to view metrics from the FastAPI application.
+* **View Logs**: Use the Grafana dashboard to view logs from the FastAPI application.
 
-2. **Start Prometheus:**
-   Run the following command in the directory where `prometheus` is located:
+## Troubleshooting
 
-   ```bash
-   ./prometheus --config.file=prometheus.yml
-   ```
-
-### 3. Install and Configure Grafana
-
-1. **Start Grafana:**
-   Follow the instructions for your platform to start Grafana.
-
-2. **Add Loki as a Data Source:**
-   - Go to **Configuration** → **Data Sources** → **Add data source** → **Loki**.
-   - Enter the URL where Loki is running (e.g., `http://<loki_host>:3100`).
-
-3. **Add Prometheus as a Data Source:**
-   - Go to **Configuration** → **Data Sources** → **Add data source** → **Prometheus**.
-   - Enter the URL where Prometheus is running (e.g., `http://<prometheus_host>:9090`).
-
-### 4. Verify the Setup
-
-- Ensure **Promtail** is sending logs to **Loki**.
-- Ensure **Prometheus** is scraping metrics from your application.
-- In Grafana, create dashboards to visualize metrics from Prometheus and logs from Loki.
-
-## Additional Notes
-
-- Adjust the paths in the configuration files according to your environment.
-- You can customize the `scrape_configs` section in both Prometheus and Promtail configurations to suit your specific requirements.
-- For further reading and advanced configurations, refer to the official documentation:
-  - [Promtail Documentation](https://grafana.com/docs/loki/latest/clients/promtail/)
-  - [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/)
-  - [Loki Documentation](https://grafana.com/docs/loki/latest/)
-  - [Grafana Documentation](https://grafana.com/docs/grafana/latest/)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
-### Instructions for Use
-1. Create a new file named `README.md` in your project directory.
-2. Copy and paste the above content into the file.
-3. Adjust any placeholders (like `<loki_host>` and `<your_application_host>`) as needed.
-4. Save the file, and your documentation will be ready for others to understand how to set up the observability stack.
+* **Check Container Logs**: Use `docker-compose logs` to view logs from the containers.
+* **Check Prometheus Metrics**: Use the Prometheus dashboard to view metrics from the FastAPI application.
+* **Check Loki Logs**: Use the Loki dashboard to view logs from the FastAPI application.
